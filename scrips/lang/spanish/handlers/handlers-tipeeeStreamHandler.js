@@ -1,0 +1,18 @@
+$.lang.register('tipeeestream.donation.new', 'Muchisimas gracias (name) por la donacion de (amount)(currency)!');
+$.lang.register('tipeeestream.donation.newreward', 'Muchisimas gracias (name) por la donacion de $(amount) (currency)! Aqui tienes (points) (pointname)!');
+$.lang.register('tipeeestream.donations.usage', 'Uso: !tipeeestream (announce | rewardmultiplier n.n | message | lastmessage)');
+$.lang.register('tipeeestream.donations.announce.disable', 'Las donaciones no se anuncian.');
+$.lang.register('tipeeestream.donations.announce.enable', 'Las donaciones se anuncian.');
+$.lang.register('tipeeestream.donations.reward.usage', 'Uso: !tipeeestream rewardmultiplier n.n  Pon 0 para desactivar');
+$.lang.register('tipeeestream.donations.reward.success', 'La recompensa por donaciones se han establecido en $1 $2 por monto total de dinero donado.');
+$.lang.register('tipeeestream.donations.message.usage', 'Uso: !tipeeestream message [mensaje...] Tags: (nombre) (cantidad) (moneda) (simbolo de moneda) (mensaje)');
+$.lang.register('tipeeestream.donations.rewardmessage.usage', 'Uso: !tipeeestream rewardmessage [mensaje...] Tags: (nombre) (cantidad) (moneda) (premio) (mensaje)');
+$.lang.register('tipeeestream.donations.message.no-name', 'No se proporciono una tag para (nombre), proporciona al menos la tag (nombre). Tags: (nombre) (cantidad) (moneda) (simbolo de moneda) (mensaje)');
+$.lang.register('tipeeestream.donations.rewardmessage.no-name', 'No se proporciono una tag para (nombre), proporciona al menos la tag (nombre). Tags: (nombre) (cantidad) (moneda) (premio) (mensaje)');
+$.lang.register('tipeeestream.donations.message.success', 'Actualizado el mensaje para donaciones cuando las recompensas esta desactivados.');
+$.lang.register('tipeeestream.donations.rewardmessage.success', 'Updated the message for tips with rewards enabled.');
+$.lang.register('tipeeestream.donations.lastmessage.success', 'Actualizado el mensaje para donaciones con premios activados.');
+$.lang.register('tipeeestream.enabled.donators', 'El grupo de donadores esta activado.');
+$.lang.register('tipeeestream.disabled.donators', 'El grupo de donadores esta desactivado.');
+$.lang.register('tipeeestream.donators.min', 'El minimo antes de ser promovido a Donador ajustado a $1');
+$.lang.register('tipeeestream.donators.min.usage', 'Uso: !tipeeestream minmumbeforepromotion (cantidad)');

@@ -1,0 +1,18 @@
+$.lang.register('streamelements.donation.new', 'Muchisimas gracias (name) por la donacion de $(amount)!');
+$.lang.register('streamelements.donation.newreward', 'Muchisimas gracias (name) por la donacion de $(amount) (currency)! Aqui tienes (points) (pointname)!');
+$.lang.register('streamelements.donations.usage', 'Uso: !streamelements (announce | rewardmultiplier n.n | message | lastmessage)');
+$.lang.register('streamelements.donations.announce.disable', 'Las donaciones no se anuncian.');
+$.lang.register('streamelements.donations.announce.enable', 'Las donaciones se anuncian.');
+$.lang.register('streamelements.donations.reward.usage', 'Uso: !streamelements rewardmultiplier n.n  Pon 0 para desactivar');
+$.lang.register('streamelements.donations.reward.success', 'La recompensa por donaciones se han establecido en $1 $2 por monto total de dinero donado.');
+$.lang.register('streamelements.donations.message.usage', 'Uso: !streamelements message [mensaje...] Tags: (nombre) (cantidad) (moneda) (simbolo de la moneda) (mensaje) (formato de la cantidad)');
+$.lang.register('streamelements.donations.rewardmessage.usage', 'Uso: !streamelements rewardmessage [mensaje...] Tags: (nombre) (cantidad) (moneda) (premio) (mensaje)');
+$.lang.register('streamelements.donations.message.no-name', 'No se proporciono una tag para (nombre), proporciona al menos la tag (nombre). Tags: (nombre) (cantidad) (moneda) (mensaje)');
+$.lang.register('streamelements.donations.rewardmessage.no-name', 'No se proporciono una tag para (nombre), proporciona al menos la tag (nombre). Tags: (nombre) (cantidad) (moneda) (premio) (mensaje)');
+$.lang.register('streamelements.donations.message.success', 'Actualizado el mensaje para donaciones cuando las recompensas esta desactivados.');
+$.lang.register('streamelements.donations.rewardmessage.success', 'Actualizado el mensaje para donaciones con premios activados.');
+$.lang.register('streamelements.donations.lastmessage.success', 'Actualizado el mensaje para el comando !lasttip.');
+$.lang.register('streamelements.enabled.donators', 'El grupo de donadores esta activado.');
+$.lang.register('streamelements.disabled.donators', 'El grupo de donadores esta desactivado.');
+$.lang.register('streamelements.donators.min', 'El minimo antes de ser promovido a Donador ajustado a $1');
+$.lang.register('streamelements.donators.min.usage', 'Uso: !streamelements minmumbeforepromotion (cantidad)');

@@ -1,0 +1,10 @@
+$.lang.register('bitshandler.toggle.off', 'Anuncios de Bits se han desactivado.');
+$.lang.register('bitshandler.toggle.on', 'Anuncios de Bits se han activado.');
+$.lang.register('bitshandler.rewardmulttoggle.off', 'Recompensas de Bits ahora es un valor constante.');
+$.lang.register('bitshandler.rewardmulttoggle.on', 'Recompensas de Bits ahora es un factor multiplicado al valor de los Bits.');
+$.lang.register('bitshandler.message.usage', 'Uso: !bitsmessage (mensaje) - Tags: (nombre), (cantidad), (recompensa)');
+$.lang.register('bitshandler.message.set', 'Mensaje de Bits ajustado a: $1.');
+$.lang.register('bitshandler.reward.usage', 'Uso: !bitsreward (cantidad)');
+$.lang.register('bitshandler.reward.set', 'Recompensa de Bits ajustado a: $1.');
+$.lang.register('bitshandler.minimum.usage', 'Uso: !bitsminimum (cantidad)');
+$.lang.register('bitshandler.minimum.set', 'Bits minimos ajustado a $1 bits.');
