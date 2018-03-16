@@ -1,4 +1,4 @@
-# Traduccion al español del bot Phantombot
+# Traduccion al español del Phantombot
 
 Esta es una traduccion al español del Bot para Twitch Phantombot.
 No es una traduccion hecha al 100%, todavia contiene fragmentos en ingles.
