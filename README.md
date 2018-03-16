@@ -33,7 +33,7 @@ Es compatible con la version 2.4.0.2.
 
 ## Traducir el panel de control web:
 
-**1.** Simplemente descargue la traduccion, recomiendo hacer un backup de la carpeta actual "Web" simplemente renombrandola, y pongala la carpeta "Web" en la raiz del bot (Donde se encuentra su ejecutable).
+**1.** Simplemente descargue la traduccion, recomiendo hacer un backup de la carpeta actual "Web", y pongala la carpeta "Web" en la raiz del bot (Donde se encuentra su ejecutable. Probablemente salte un cartel diciendo si quiere sobreescribir el contenido, en cualquier caso acepte, reemplaza los textos originales en ingles con los nuevos en español).
 
 ![Imagen](http://666kb.com/i/drtvactiz15c5uwpd.png)
 
