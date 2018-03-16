@@ -27,7 +27,7 @@ Es compatible con la version 2.4.0.2.
 
 **3.** Luego en el chat de Twitch, utiliza el comando !lang spanish obteniendo como resultado "@CuentaDeTwitch, Lenguaje cambiado a spanish!"
 
-![Imagen](http://666kb.com/i/drtv0gp4z7qtqie4x.png)
+![Imagen](http://666kb.com/i/drtw0jh7jbegdsky9.png)
 
 **4.** Y listo! Ya se encuentra disponible para utilizar.
 
