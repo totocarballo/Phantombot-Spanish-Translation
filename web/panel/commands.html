@@ -1,0 +1,252 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="customCommandsAccordion">
+    <h3>Comandos</h3>
+    <div>
+        <div id="_editCustomCommandsPanelDisabled" />
+    <div id="_editCustomCommandsPanel">
+
+        <div id="tagHelpDialog" title="Etiquetas de comandos personalizados" style="font-size: 90%">
+            <table>
+                <tr>
+                    <td>(sender) </td><td> Usuario que utiliza el comando.<td>
+                    </tr><tr>
+                    <td>(@sender) </td><td> Usuario que utiliza el comando y añade el simbolo @ a su nombre.<td>
+                    </tr><tr>
+                    <td>(baresender) </td><td> Usuario que utiliza el comando en minusculas.<td>
+                    </tr><tr>
+                    <td>(touser) </td><td> Remplaza el argumento que se escribe despues del comando. Si no hay nada despues, se utiliza el nombre del usuario que lo utiliza.<td>
+                    </tr><tr>
+                    <td>(#) </td><td> Numero aleatorio.<td>
+                    </tr><tr>
+                    <td>(1), (2), (3) etc </td><td> Argumentos del comando.<td>
+                    </tr><tr>
+                    <td>(age) </td><td> Dice desde cuando estas en Twitch.<td>
+                    </tr><tr>
+                    <td>(random) </td><td> Persona aleatoria del chat.<td>
+                    </tr><tr>
+                    <td>(pointname) </td><td> Nombre de los puntos actual.<td>
+                    </tr><tr>
+                    <td>(uptime) </td><td> Tiempo que se lleva en directo.<td>
+                    </tr><tr>
+                    <td>(game) </td><td> Juego puesto en Twich actualmente.<td>
+                    </tr><tr>
+                    <td>(status) </td><td> Titulo puesto en Twitch actualmente.<td>
+                    </tr><tr>
+                    <td>(price) </td><td> Precio del comando.<td>
+                    </tr><tr>
+                    <td>(pay) </td><td> Pago del comando.<td>
+                    </tr><tr>
+                    <td>(onlineonly) </td><td> Hace que el comando solo se utilice cuando el directo esta encendido.<td>
+                    </tr><tr>
+                    <td>(offlineonly) </td><td> Hace que el comando solo se utilice cuando el directo esta apagado.<td>
+                    </tr><tr>
+                    <td>(viewers) </td><td> Contador de espectadores actual.<td>
+                    </tr><tr>
+                    <td>(count) </td><td> Cantidad de veces que se utilizo el comando.<td>
+                    </tr><tr>
+                    <td>(echo) </td><td> Permite decir cualquier mensaje como si fuese el bot.<td>
+                    </tr><tr>
+                    <td>(1=) </td><td> Argumento 1. Añade al nombre de etiqueta de tu preferencia despues de = si el argumento esta vacio.<td>
+                    </tr><tr>
+                    <td>(countdown=) </td><td> Añade una fecha que quieras contar regresivamente. Ej (countdown=July 2 2016 7:00).<td>
+                    </tr><tr>
+                    <td>(downtime) </td><td> Tiempo desde el ultimo directo.<td>
+                    </tr><tr>
+                    <td>(readfile filename.txt) </td><td> Lee que hay en el archivo. El archivo debe estar en la carpeta addons del bot.<td>
+                    </tr><tr>
+                    <td>(customapijson URL key | {cadena literal} ...) </td>
+                    <td> Llama a una URL remota que retorna un JSON. Llave u objeto.Llave u objeto.objeto.Llave para acceder a los datos del JSON.
+                    </tr><tr>
+                    <td>(command [nombre_del_comando]) </td><td> Llama un comando. Debe ser el primer objeto en el comando personalizado. No incluya ! antes que el nombre_del_comando</td>
+                    </tr><tr>
+                    <td>(customapi [requesturl]) </td><td> Llama a una URL remota.<td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-primary btn-xs inline pull-right"
+                     onclick="$('#tagHelpDialog').dialog('open')"><small>Variables de los comandos</small></button>
+            <br><br>
+        </div>
+    </div>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="runCustomCommand">Ejecutar un comando</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.runCustomCommand()">Ejecutar</button>
+                <input type="text" class="form-control" id="commandImput" placeholder="Nombre del comando" />
+            </div>
+        </form>
+        <br>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="addCustomCommand">Añadir un comando</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.addCustomCommand()">Enviar</button>
+                <input type="text" class="form-control" id="addCommandCommand" placeholder="Nombre del comando" />
+                <input type="text" class="form-control" id="addCommandText" placeholder="Respuesta del comando" />
+            </div>
+        </form>
+        <label for="addCustomCommand">Lista de comandos</label>
+    <div id="_viewCustomCommandsPanelDisabled" />
+    <div id="_viewCustomCommandsPanel">
+        <div id="customCommandsList" style="height: 250px; overflow: auto;" />
+    </div>
+    </div>
+
+    <h3>Apodos</h3>
+    <div>
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="addCustomCommand">Añadir un apodo</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.aliasCommand()">Enviar</button>
+                <input type="text" class="form-control" id="aliasCommandInputAlias" placeholder="Nombre original del comando" />
+                <input type="text" class="form-control" id="aliasCommandInput" placeholder="Nombre del apodo" />
+            </div>
+        </form>
+    <div id="_viewCommandAliasesPanelDisabled" />
+    <div id="_viewCommandAliasesPanel">
+        <div id="aliasCommandsList" style="height: 200px; overflow: auto;" />
+    </div>
+    </div>
+
+    <h3>Costos</h3>
+    <div>
+    <div id="_commandPricesPanelDisabled" />
+    <div id="_commandPricesPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="setCommandPrice">Añadir un nuevo precio</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.setCommandPrice()">Enviar</button>
+                <input type="text" class="form-control" id="setCommandPriceInputCommand" placeholder="Nombre del comando" />
+                <input type="text" class="form-control" id="setCommandPriceInput" placeholder="Precio" />
+            </div>
+        </form>
+
+        <strong>Precios de los comandos actuales</strong><br><br>
+        <div id="priceCommandsList" style="height: 200px; overflow: auto;" />
+    </div>
+    </div>
+
+    <h3>Pagos</h3>
+    <div>
+    <div id="_commandPayPanelDisabled" />
+    <div id="_commandPayPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="setCommandPay">Añadir un nuevo pago</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.setCommandPay()">Enviar</button>
+                <input type="text" class="form-control" id="setCommandPayInputCommand" placeholder="Nombre del comando" />
+                <input type="text" class="form-control" id="setCommandPayInput" placeholder="Pago" />
+            </div>
+        </form>
+
+        <strong>Pagos de los comandos actuales</strong><br><br>
+        <div id="payCommandsList" style="height: 200px; overflow: auto;" />
+    </div>
+    </div>
+
+    <h3>Permisos</h3>
+    <div>
+        <table>
+            <tr class="textList">
+                <td>Mensaje de alerta por no tener los permisos.</td>
+                <td style="width: 25px"><div id="permcomMsg" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.togglePermcomMsg();"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+    <div id="_commandPermissionPanelDisabled" />
+    <div id="_commandPermissionPanel">
+        <div id="permCommandsList" style="height: 300px; overflow: auto;" />
+    </div>
+    </div>
+
+    <h3>Enfriamiento</h3>
+    <div>
+        <table>
+            <tr class="textList">
+            <tr class="textList">
+                <td>Moderadores con enfriamiento</td>
+                <td style="width: 25px"><div id="toggleModCooldown" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleModCooldown();"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+            <tr class="textList">
+                <td>Mensajes de alerta de enfriamiento</td>
+                <td style="width: 25px"><div id="cooldownMsg" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleCooldownMsg();"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="defaultCooldownInput">Enfriamiento predeterminado</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.setDefaultCooldown()">Enviar</button>
+                <input type="number" min="5" class="form-control" id="defaultCooldownInput" placeholder="Seconds" data-toggle="tooltip" title="Enfriamiento predeterminado es aplicado a todos los comandos que no tengan un enfriamiento ajustado. El minimo es de 5 segundos."/>
+            </div>
+        </form>
+
+        <br>
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="cooldownCmd">Enfriamiento de comando</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.addCooldown()">Enviar</button>
+                <input type="text" class="form-control" id="cooldownCmdInputCommand" placeholder="Nombre del comando" />
+                <input type="number" min="0" class="form-control" id="cooldownCmdInput" placeholder="Segundos" />
+            
+            <div class="checkbox pull-right">
+                <label>
+                    <input type="checkbox" id="globalCooldownCheck" value="global" checked data-toggle="tooltip" title="Cuando este marcado el enfriamiento va a ser aplicado a todos en el canal, si no lo esta, se aplicara en una base por usuario.">Global
+                </label>
+            </div>
+            </div>
+        </form>
+
+        <br><br>
+        <strong>Commandos con enfriamiento</strong>
+        <div id="cooldownList" style="height: 200px; overflow: auto;" />
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#customCommandsAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });</script>
+<script>$(function() {var command = $.commands; $("#commandImput").autocomplete({source: command});});</script>
+<script>$("#tagHelpDialog").dialog({ autoOpen: false, maxHeight: 500, maxWidth: 500, resizable: false });</script>
+<script>handleInputFocus();</script>

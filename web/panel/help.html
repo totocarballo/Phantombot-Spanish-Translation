@@ -1,0 +1,66 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="helpAccordion">
+    <h3>Version</h3>
+    <div>
+        <div id="botVersion" />
+    </div>
+
+    <h3>Sitios de soporte</h3>
+    <div>
+        <strong>Necesitas ayuda? Llega al equipo de PhantomBot con los siguientes enlaces.</strong><br><br>
+
+        <i class="fa fa-external-link" />
+        <a target="_blank" href="https://community.phantombot.tv/">PhantomBot Community Forums</a><br>
+
+        <i class="fa fa-twitter" />
+        <a target="_blank" href="https://twitter.com/PhantomBotApp">Twitter</a><br>
+
+        <br>
+        <strong>Buscando por informacion extra?</strong><br><br>
+        <i class="fa fa-external-link" />
+        <a target="_blank" href="https://phantombot.tv/">Informacion del PhantomBot</a><br>
+        
+        <i class="fa fa-external-link" />
+        <a target="_blank" href="https://phantombot.tv/commands/">Lista de comandos de PhantomBot</a><br>
+
+        <i class="fa fa-external-link" />
+        <a target="_blank" href="https://phantombot.tv/streamlabs/">Conectar con StreamLabs</a><br>
+
+        <i class="fa fa-external-link" />
+        <a target="_blank" href="https://phantombot.tv/gamewisp/">Conectar con GameWisp</a><br>
+    </div>
+
+    <h3>Traduccion</h3>
+    <div>
+        <strong>Puedes encontrar la traduccion en español en el siguiente enlace.</strong><br><br>
+
+        <i class="fa fa-external-link" />
+        <a target="_blank" href="https://github.com/totocarballo/Phantombot-Spanish-Translation">Traduccion al español</a><br>
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#helpAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>handleInputFocus();</script>

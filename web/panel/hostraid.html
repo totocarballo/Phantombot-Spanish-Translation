@@ -1,0 +1,222 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="hostraidAccordion">
+    <h3>Hostear/Invadir un canal</h3>
+    <div>
+        <div id="_hostChannelPanelDisabled" />
+        <div id="_hostChannelPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="hostChannel">Hostear un canal</label>
+                <button type="button" class="btn btn-primary inline pull-right" 
+                        onclick="$.hostChannel()">Enviar</button>
+                <input type="text" class="form-control" id="hostChannelInput" placeholder="Canal de Twitch">
+            </div>
+        </form>   
+        </div>
+
+        <div id="_raidChannelPanelDisabled" />
+        <div id="_raidChannelPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="raidChannel">Invadir un canal</label>
+                <button type="button" class="btn btn-primary inline pull-right" 
+                        onclick="$.raidChannel()">Enviar</button>
+                <input type="text" class="form-control" id="raidChannelInput" placeholder="Canal de Twitch">
+            </div>
+        </form> 
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="raiderChannel">Anunciar una invacion en camino</label>
+                <button type="button" class="btn btn-primary inline pull-right" 
+                        onclick="$.raiderChannel()">Enviar</button>
+                <input type="text" class="form-control" id="raiderChannelInput" placeholder="Canal de Twitch">
+            </div>
+        </form> 
+    </div>
+    </div>
+
+    <h3>Configuracion de hosteo</h3>
+    <div>
+    <div id="_hostAlertsPanelDisabled" />
+    <div id="_hostAlertsPanel">
+        <table>
+            <tr class="textList">
+                <td>Cambiar anuncio de hosteo</td>
+                <td style="width: 25px"><div id="hostToggle" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Activado" class="button"
+                         onclick="$.toggle('settings', 'hostToggle', 'true');"><i class="fa fa-circle" />
+                     </div>
+                </td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Desactivado" class="button"
+                         onclick="$.toggle('settings', 'hostToggle', 'false');"><i class="fa fa-circle-o" />
+                     </div>
+                </td>
+            </tr>
+            <tr class="textList">
+                <td>Cambiar anuncio de hosteo automatico</td>
+                <td style="width: 25px"><div id="autoHostToggle" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Activado" class="button"
+                         onclick="$.toggle('settings', 'autoHostToggle', 'true');"><i class="fa fa-circle" />
+                     </div>
+                </td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Desactivado" class="button"
+                         onclick="$.toggle('settings', 'autoHostToggle', 'false');"><i class="fa fa-circle-o" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="hostAnnounce">Mensaje de hosteo</label>
+                <button type="button" class="btn btn-primary inline pull-right" 
+                        onclick="$.updateHostAnnounce()">Enviar</button>
+                <input type="text" class="form-control" id="hostAnnounceInput" placeholder="Mensaje de hosteo"
+                       data-toggle="tooltip" title="Tags: (name) (viewers) (reward)"/>
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="hostAutoAnnounce">Mensaje de hosteo automatico</label>
+                <button type="button" class="btn btn-primary inline pull-right" 
+                        onclick="$.updateAutoHostAnnounce()">Enviar</button>
+                <input type="text" class="form-control" id="hostAutoAnnounceInput" placeholder="Mensaje de hosteo automatico"
+                       data-toggle="tooltip" title="Tags: (name) (viewers) (reward)"/>
+            </div>
+        </form>
+        
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="hostReward">Recompensa de hosteo</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.updateHostReward()">Enviar</button>
+                <input type="number" min="0" class="form-control" id="hostRewardInput" placeholder="Puntos" />
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="autoHostReward">Recompensa de hosteo automatico</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.updateAutoHostReward()">Enviar</button>
+                <input type="number" min="0" class="form-control" id="autoHostRewardInput" placeholder="Puntos" />
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="hostMinViewers">Cantidad minima de espectadores para recompensa de hosteo</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.updateHostMinViewers()">Enviar</button>
+                <input type="number" min="0" class="form-control" id="hostMinViewersInput" placeholder="Puntos" />
+            </div>
+            <small><b>Atencion:</b> Twitch no siempre proporciona la cantidad de espectadores si el canal que lo hostea ha detenido la transmisión, lo que puede dar como resultado que no se de ninguna recompensa al emisor que detiene la transmision antes de recibirlo.</small>
+        </form>
+
+        <br>
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="hostMinViewersAlert">Cantidad minima de espectadores para alerta de hosteo</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.hostMinViewersAlert()">Enviar</button>
+                <input type="number" min="0" class="form-control" id="hostMinViewersAlertInput" placeholder="Puntos" />
+            </div>
+            <small><b>Atencion:</b> Twitch no siempre proporciona la cantidad de espectadores si el canal que lo hostea ha detenido la transmisión, lo que puede dar como resultado que se envie una alerta a emisor que detiene la transmision antes de recibirlo.</small>
+        </form>
+
+    </div>
+    </div>
+
+    <h3>Historial de hosteos</h3>
+    <div>
+    <div id="_hostHistoryPanelDisabled" />
+    <div id="_hostHistoryPanel">
+        <table>
+            <tr class="textList">
+                <td>Historial de hosteos</td>
+                <td style="width: 25px"><div id="hostHistoryMode" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Activado" class="button"
+                         onclick="$.changeHostHistory('on');"><i class="fa fa-circle" />
+                     </div>
+                </td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Desactivado" class="button"
+                         onclick="$.changeHostHistory('off');"><i class="fa fa-circle-o" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+
+        <strong>Historial de hosteos</strong>
+        <div id="hostHistoryList" style="height: 200px; overflow: auto" />
+    </div>
+    </div>
+
+    <h3>Mensaje de invacion</h3>
+    <div>
+    <div id="_raidMsgPanelDisabled" />
+    <div id="_raidMsgPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="raidMessage">Mensaje de invacion</label>
+                <button type="button" class="btn btn-primary inline pull-right" 
+                        onclick="$.updateRaidMessage()">Enviar</button>
+                <input type="text" class="form-control" id="raidMessageInput" placeholder="Mensaje de invacion" />
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <h3>Invaciones entrantes</h3>
+    <div>
+    <div id="_raidIncomingPanelDisabled" />
+    <div id="_raidIncomingPanel">
+        <strong>Lista de invaciones entrantes</strong>
+        <div id="incomingRaidList" style="height: 200px; overflow: auto" />
+    </div>
+    </div>
+
+    <h3>Invaciones salientes</h3>
+    <div>
+    <div id="_raidOutgoingPanelDisabled" />
+    <div id="_raidOutgoingPanel">
+        <strong>Lista de invaciones salientes</strong>
+        <div id="outgoingRaidList" style="height: 200px; overflow: auto" />
+    </div>
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#hostraidAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>handleInputFocus();</script>

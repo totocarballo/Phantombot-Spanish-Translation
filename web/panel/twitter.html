@@ -1,0 +1,151 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+<div id="_twitterPanelDisabled"><br><br></div>
+<div id="_twitterPanel">
+<div>
+    <form role="form">
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="postTweet">Publicar un Tweet</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.postTweet()">Tweet</button>
+            <input type="text" maxlength="140" class="form-control" id="postTweetInput" placeholder="Texto del Tweet">
+        </div>
+    </form>
+</div>
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="twitterAccordion">
+    <h3>Opciones de sondeo</h3>
+    <div>
+        <div id="twitterPollTable" style="height: 120px; overflow: auto;" />
+        <small><i>
+        Por favor note que si el sondeo de la linea del tiempo del Home esta activada, entonces PhantomBot no sondeara otra informacion de Twitter.
+        Las otras opciones no se marcan automaticamente como deshabilitadas, pero PhantomBot no realizara el sondeo.
+        </i></small>
+        <br><br>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="pollDelayMentionsTweet">Retraso del sondeo de las Menciones</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('polldelay_mentions')">Actualizar</button>
+                <input type="number" min="60" class="form-control" id="polldelay_mentionsTweetInput" placeholder="Segundos"
+                       data-toggle="tooltip" title="Retraso del sondeo en segundos. El minimo es 60.">
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="pollDelayRetweetsTweet">Retraso del sondeo de los Retweets</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('polldelay_retweets')">Actualizar</button>
+                <input type="number" min="60" class="form-control" id="polldelay_retweetsTweetInput" placeholder="Segundos"
+                       data-toggle="tooltip" title="Retraso del sondeo en segundos. El minimo es 60.">
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="pollDelayHomeTweet">Retraso del sondeo de la linea del tiempo del Home</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('polldelay_hometimeline')">Actualizar</button>
+                <input type="number" min="60" class="form-control" id="polldelay_hometimelineTweetInput" placeholder="Segundos"
+                       data-toggle="tooltip" title="Retraso del sondeo en segundos. El minimo es 60.">
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="pollDelayUserTweet">Retraso del sondeo de la linea del tiempo del Usuario</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('polldelay_usertimeline')">Actualizar</button>
+                <input type="number" min="15" class="form-control" id="polldelay_usertimelineTweetInput" placeholder="Segundos"
+                       data-toggle="tooltip" title="Retraso del sondeo en segundos. El minimo es 15.">
+            </div>
+        </form>
+    </div>
+
+    <h3>Opciones de publicacion</h3>
+    <div>
+        <div id="twitterPostTable" style="height: 100px; overflow: auto;" />
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="postOnlineTweet">Tweet cuando el directo esta conectado</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('message_online')">Actualizar</button>
+                <input type="text" maxlength="140" class="form-control" id="message_onlineTweetInput" placeholder="Texto del Tweet"
+                       data-toggle="tooltip" title="Etiquetas: (title) (game) (twitchurl)">
+            </div>
+        </form>
+    
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="postGameChangeTweet">Tweet cuando se cambia de juego</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('message_gamechange')">Actualizar</button>
+                <input type="text" maxlength="140" class="form-control" id="message_gamechangeTweetInput" placeholder="Texto del Tweet"
+                       data-toggle="tooltip" title="Etiquetas: (title) (game) (twitchurl)">
+            </div>
+        </form>
+    
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="postAutoUpdateTweet">Tweet automatico cuando se cambie el estado del directo</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('message_update')">Actualizar</button>
+                <input type="text" maxlength="140" class="form-control" id="message_updateTweetInput" placeholder="Texto del Tweet"
+                       data-toggle="tooltip" title="Etiquetas: (title) (game) (twitchurl) (uptime)">
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="postDelayUpdateTweet">Retraso de la publicacion automatica de actualizaciones</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('postdelay_update')">Actualizar</button>
+                <input type="number" min="180" class="form-control" id="postdelay_updateTweetInput" placeholder="Minutos"
+                       data-toggle="tooltip" title="Retraso de la publicacion en minutos. El minimo es 180.">
+            </div>
+        </form>
+    </div>
+
+    <h3>Retweet Reward Options</h3>
+    <div>
+        <div id="twitterRewardTable" style="height: 80px; overflow: auto;" />
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="rewardPointsTweet">Puntos de recompensa por Retweetear</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('reward_points')">Actualizar</button>
+                <input type="number" min="0" class="form-control" id="reward_pointsTweetInput" placeholder="Puntos"
+                       data-toggle="tooltip" title="Puntos de recompensa por Retweetear la publicacion.">
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="rewardCoodownTweet">Horas entre recompensas para los usuarios por Retwittear</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateDataTwitter('reward_cooldown')">Actualizar</button>
+                <input type="number" min="0" class="form-control" id="reward_cooldownTweetInput" placeholder="Horas"
+                       data-toggle="tooltip" title="Tiempo en horas que tiene que pasar antes de que el usuario reciba una recompensa entre retweets. Fraciones estan permitidas (0.5 = 30 minutos).">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#twitterAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });</script>
+<script>handleInputFocus();</script>

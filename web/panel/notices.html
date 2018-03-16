@@ -1,0 +1,101 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="noticesAccordion">
+    <h3>Notificacion y configuracion</h3>
+    <div>
+    <div id="_noticeConfigPanelDisabled" />
+    <div id="_noticeConfigPanel">
+        <table>
+            <tr class="textList">
+                <td>Cambiar notificaciones en el chat</td>
+                <td style="width: 25px"><div id="chatNoticeMode" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleChatNotice();"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr class="textList">
+                <td>Cambiar notificaciones en el chat desconectado</td>
+                <td style="width: 25px"><div id="chatOfflineNoticeMode" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleChatOfflineNotice();"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+
+        Ajusta el intervalo de notificaciones y la cantidad de mensajes antes de enviar una. Usa 0 si quiere solo usar el intervalo de tiempo.<br><br>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="noticeInterval">Intervalo de tiempo</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.updateNoticeInterval('#noticeIntervalInput', 'interval')">Enviar</button>
+                <input type="number" min="5" class="form-control" id="noticeIntervalInput" placeholder="Minutos" 
+                    data-toggle="tooltip" title="Ajusta el intervalo (en minutos) de cuando una notificaciones es enviada. El minimos es 5 minutos" />
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="noticeMsgReq">Mensajes requeridos</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.updateNoticeReq('#noticeReqInput', 'reqmessages')">Enviar</button>
+                <input type="number" min="0" class="form-control" id="noticeReqInput" placeholder="Numero de mensajes"
+                    data-toggle="tooltip" title="Ajusta la cantidad de mensajes requeridos para enviar una notificaciones." />
+            </div>
+        </form>
+        <br>
+
+        Las notificaciones son anuncios de chat cronometrados que se dicen aleatoriamente con el intervalo que se ha ajustado. Es una buena funcion para promover tus medios sociales.<br><br>
+
+        <div id="_noticesPanelDisabled" />
+        <div id="_noticesPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="addNotice">Añadir una nueva notificacion</label>
+                <button type="button" class="btn btn-primary inline pull-right"
+                        onclick="$.addNotice()">Enviar</button>
+                <input type="text" class="form-control" id="addNoticeInput" placeholder="Nueva notificacion"
+                       data-toggle="tooltip" title="Pon un mensaje, o puedes usar un comando. command:Nombre_del_comando" />
+            </div>
+        </form>
+
+        Notifiaciones actuales
+        <div id="noticeList" style="height: 200px; overflow: auto;" />
+    </div>
+    </div>
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#noticesAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });</script>
+<script>handleInputFocus();</script>

@@ -1,0 +1,101 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="timeAccordion">
+    <h3>Configuracion del Tiempo</h3>
+    <div>
+        <table>
+            <tr class="textList">
+                <td>Acumulacion de tiempo por no estar en directo</td>
+                <td style="width: 25px"><div id="keepTimeWhenOffline" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleTimeMode('keepTimeWhenOffline', 'keepTimeWhenOffline');"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+            <tr class="textList">
+                <td>Promocion automatica por tiempo a Regulares</td>
+                <td style="width: 25px"><div id="timeLevel" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleTimeMode('timeLevel', 'timeLevel');"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+            <tr class="textList">
+                <td>Anunciar en chat la promocion a Regular</td>
+                <td style="width: 25px"><div id="timeLevelWarning" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleTimeMode('timeLevelWarning', 'timeLevelWarning');"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="topListAmountTime">Cantidad en la lista de Top de tiempo</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.topListTime()">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="topListAmountTime" placeholder="Amount" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setTimePromotion">Horas para la promocion a Regular</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setTimePromotion()">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="setTimePromotionInput" placeholder="Hours" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setTimeZone">Configurar zona horaria (
+                <a target="_blank" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">ver aqui</a>)
+            </label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setTimeZone()">Actualizar</button>
+            <input type="text" class="form-control" id="setTimeZoneInput" placeholder="Timezone" />
+        </div>
+    </div>
+
+    <h3>Modificar tiempo de usuario</h3>
+    <div>
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="adjustUserTime">Ajustar tiempo de usuario (Segundos)</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.modifyUserTime('take')">Vaciar</button>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.modifyUserTime('add')">Añadir</button>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.modifyUserTime('set')">Ajustar</button>
+            <input type="text" class="form-control" id="adjustUserTimeNameInput" placeholder="Nombre de usuario o clickealo en la fila de abajo" />
+            <input type="number" min="0" class="form-control" id="adjustUserTimeSecsInput" placeholder="Segundos" />
+        </div>
+        <br>
+
+        <div>
+            <span id="userTimeTableTitle">Tabla de tiempo de usuarios</span>
+        </div>
+        <br>
+        <div id="userTimeTable" style="height: 510px; overflow: auto;" />
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#timeAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>handleInputFocus();</script>

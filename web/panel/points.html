@@ -1,0 +1,159 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="pointsAccordion">
+    <h3>Configuracion de puntos</h3>
+    <div>
+    <div id="_pointsConfigPanelDisabled" />
+    <div id="_pointsConfigPanel">
+        <table>
+            <tr class="textList">
+                <td>Cambiar costos de comandos para moderadores</td>
+                <td style="width: 25px"><div id="priceComMods" /></td>
+                <td style="width: 25px">
+                    <div data-toggle="tooltip" title="Cambiar" class="button"
+                         onclick="$.toggleModPriceCom();"><i class="fa fa-refresh" />
+                     </div>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setPointName">Ajustar el nombre alternativo para los puntos</label>
+            <button type="button" class="btn btn-danger inline pull-right" onclick="$.clearPointName()">Borrar nombres</button>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointName()">Actualizar</button>
+            <input type="text" data-toggle="tooltip" title="Nombre dado a un solo punto. No nombre ambos puntos igual, o podria causar problemas." class="form-control"
+                   id="setPointNameInput" placeholder="Nombre singular de los puntos" />
+            <input type="text" data-toggle="tooltip" 
+            title="Nombre dado a cero y dos o mas puntos. No nombre ambos puntos igual, o podria causar problemas." class="form-control"
+                   id="setPointsNameInput" placeholder="Nombre singular de los puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="pointsMessage">Ajustar el mensaje de los puntos</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointsMessage()">Actualizar</button>
+            <input type="text" class="form-control" id="pointsMessageInput" placeholder="Mensaje de los puntos" data-toggle="tooltip" 
+            title="Ajusta un mensaje para cuando los usuarios usen el comando !points. Tags: (userprefix), (user), (points), (pointsname), (pointsstring), (time), y (rank)" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setPointName">Ajustar el intervalo de pagos conectado (Minutos)</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointGain('setinterval')">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="setPointGainInput_setinterval" placeholder="Puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setPointName">Ajustar el intervalo de pagos desconectado (Minutos)</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointGain('setofflineinterval')">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="setPointGainInput_setofflineinterval" placeholder="Puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setPointName">Ajustar la ganancia de puntos conectado</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointGain('setgain')">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="setPointGainInput_setgain" placeholder="Puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setPointName">Ajustar la ganancia de puntos desconectado</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointGain('setofflinegain')">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="setPointGainInput_setofflinegain" placeholder="Puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="setActiveBonus">Ajustar el extra activo</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.setPointGain('setactivebonus')">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="setPointGainInput_setactivebonus" placeholder="Puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="topListAmountPoints">Cantidad en la lista de Top Puntos</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.topListPoints()">Actualizar</button>
+            <input type="number" min="0" class="form-control" id="topListAmountPoints" placeholder="Cantidad" />
+        </div>
+    </div>
+    </div>
+    
+    <h3>Modificar puntos de usuario</h3>
+    <div>
+    <div id="_userPointConfigPanelDisabled" />
+    <div id="_userPointConfigPanel">
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="giftPoints">Regalar puntos en el chat</label>
+            <button type="button" data-toggle="tooltip" title="Regala la cantidad de abajo a cada persona en el chat."
+                    class="btn btn-primary inline pull-right" onclick="$.giftChatPoints('all')">Regalos para Todos</button>
+            <button type="button" data-toggle="tooltip" title="Regala aleatoriamente hasta la cantidad de abajo a cada persona en el chat."
+                    class="btn btn-primary inline pull-right" onclick="$.giftChatPoints('makeitrain')">Hazlos llover</button>
+            <button type="button" data-toggle="tooltip" title="Da puntos extra por X cantidad de minutos a cada pago."
+                    class="btn btn-primary inline pull-right" onclick="$.giftChatPoints('bonus')">Extra</button>
+                    <button type="button" data-toggle="tooltip" title="Saca X cantidad de puntos de todos en el canal."
+                    class="btn btn-primary inline pull-right" onclick="$.giftChatPoints('take')">Sacar de Todos</button>
+            <input type="text" class="form-control" id="giftChatPointsInput" placeholder="Puntos [si hay extra (tiempo en minutos)]" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="adjustUserPoints">Ajustar puntos de usuario</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.modifyUserPoints('take')">Sacar</button>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.modifyUserPoints('add')">Añadir</button>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.modifyUserPoints('set')">Ajustar</button>
+            <input type="text" class="form-control" id="adjustUserPointsNameInput" placeholder="Nombre de usuario o clickealo de la tabla de puntos de abajo" />
+            <input type="number" min="0" class="form-control" id="adjustUserPointsInput" placeholder="Puntos" />
+        </div>
+
+        <div class="form-group" onkeypress="return event.keyCode != 13">
+            <label for="penaltyUserPoints">Penalizar usuario</label>
+            <button type="button" class="btn btn-primary inline pull-right" onclick="$.penaltyUser()">Enviar</button>
+            <input type="text" class="form-control" id="penaltyUser" placeholder="Usuario" data-toggle="tooltip" title="Para a un usuario de recibir puntos." class="form-control" />
+            <input type="number" class="form-control" id="penaltyUserTime" placeholder="Tiempo" />
+        </div>
+        <br>
+
+        <div>
+            <span id="userPtsTableTitle">Tabla de puntos de usuarios</span>
+        </div>
+        <br>
+        <div id="userPointsTable" style="height: 510px; overflow: auto;" />
+    </div>
+    </div>
+
+    <h3>Configuracion de los puntos de grupos</h3>
+    <div>
+    <div id="_groupPointConfigPanelDisabled" />
+    <div id="_groupPointConfigPanel">
+        La configuracion definida aqui sobrepasa la configuracion global. Nota que el valor de "-1" indica que la configuración global es utilizada.<br><br>
+        <strong>Configuracion de los puntos de grupos - Conectado</strong><br>
+        <div id="groupPointsTable" style="height: 255px; overflow: auto;" />
+        <br>
+
+        <strong>Configuracion de los puntos de grupos - Desconectado</strong><br>
+        <div id="groupPointsOfflineTable" style="height: 255px; overflow: auto;" />
+    </div>
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#pointsAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });</script>
+<script>handleInputFocus();</script>

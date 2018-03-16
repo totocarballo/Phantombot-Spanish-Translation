@@ -1,0 +1,416 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author IllusionaryOne
+-->
+
+<!-- This is outside of the accordion, so will always be on top of the tab -->
+
+<!-- Accordion object.  Each section is separated by an <h3 /> header and the content is to be enclosed in <div />.  -->
+<div id="gamblingAccordion">
+    <h3>Subasta</h3>
+    <div>
+    <div id="_auctionPanelDisabled" />
+    <div id="_auctionPanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="auctionOpen">Abrir/Cerrar una subasta</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.auctionClose()">Abrir subasta</button>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.auctionOpen()">Cerrar subasta</button>
+                <input type="number" min="0" class="form-control" id="auctionIncrementInput" placeholder="Incrementos" />
+                <input type="number" min="0" class="form-control" id="auctionBetInput" placeholder="Apuesta minima" />
+                <input type="number" min="0" class="form-control" id="auctionTimerInput" placeholder="Duracion de la subasta en segundos (opcional, por defecto es hasta que se cierre)" />
+            </div>
+        </form>
+
+        <div id="auctionResults" />
+    </div>
+    </div>
+
+    <h3>Sorteo</h3>
+    <div>
+    <div id="_rafflePanelDisabled" />
+    <div id="_rafflePanel">
+
+    <button type="button" class="btn btn-primary inline pull-right" onclick="$.raffle.repick()">Volver a elegir</button>
+    <button type="button" class="btn btn-primary inline pull-right" onclick="$.raffle.end()">Cerrar</button>
+    <div class="dropdown">
+        <button class="btn btn-primary inline pull-right dropdown-toggle" type="button" data-toggle="dropdown">Abrir&nbsp;<span class="caret pull-right" style="margin-top: 8px;"></span></button>
+        <ul class="dropdown-menu pull-right" style="cursor: pointer; margin-top: 39px; margin-right: 40px;">
+            <li><a data-toggle="modal" data-target="#timeRaffle">Sorteo por tiempo</a></li>
+            <li><a data-toggle="modal" data-target="#pointsRaffle">Sorteo por puntos</a></li>
+            <li><a data-toggle="modal" data-target="#normalRaffle">Sorteo normal</a></li>
+        </ul>
+    </div>
+
+    <div id="pointsRaffle" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background: rgb(28, 28, 36); border-radius: 3px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Sorteo por puntos</h4>
+                </div>
+
+                <div class="modal-body">
+                    <lable>Palabra clave</lable>
+                    <div class="btn-group">
+                        <input style="width: 400px; margin-left: 55px;" type="text" class="form-control" id="raffle-keyword" placeholder="Palabra clave" data-toggle="tooltip" 
+                        title="Esta es la palabra clave que los usuarios van a escribir en el chat para participar. Si añades ! en frente de la palabra clave va a funcionar como un comando."/>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Cuota entrada</lable>
+                    <div class="btn-group">
+                        <input style="width: 400px; margin-left: 51px;" type="number" min="1" class="form-control" id="raffle-cost" placeholder="Puntos" data-toggle="tooltip" 
+                        title="Cantidad de puntos que el espactor debe tener para entrar al sorteo. Esto también tomara esta cantidad de puntos de su balance."/>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Elegibilidad</lable>&nbsp;
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-select" style="text-align: left; margin-left: 63px; width: 403px; background: #000" data-toggle="dropdown">
+                            Todos<span class="caret pull-right" style="margin-top: 8px;"></span></button>
+
+                        <ul class="dropdown-menu" style="margin-left: 48px;">
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('subscribers')">Suscriptores</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('followers')">Seguidores</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('everyone')">Todos</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <br>
+                    <lable>Tiempo en cerrarse</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-points-timer" style="width: 400px; margin-left: 30px;" type="range" min="0" max="120" value="0" step="1" oninput="rangeUpdate(this.value, 'raffle-points-timer2', 'Minutos')" />
+                        <span id="raffle-points-timer2" style="margin-left: 33px;">Hasta cerrarlo</span>
+                    </div>
+
+                    <br>
+                    <lable>Suerte de Regulares</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-points-regluck" style="width: 400px; margin-left: 26px;" type="range" min="1" max="10" value="1" step="1" oninput="rangeUpdate(this.value, 'raffle-points-reg', 'Veces')" />
+                        <span id="raffle-points-reg" style="margin-left: 28px;">1 Veces</span>
+                    </div>
+
+                    <br>
+                    <lable>Suerte de Suscriptores</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-points-subluck" style="width: 400px; margin-left: 10px;" type="range" min="1" max="10" value="1" step="1" oninput="rangeUpdate(this.value, 'raffle-points-sub', 'Veces')" />
+                        <span id="raffle-points-sub" style="margin-left: 10px;">1 Veces</span>
+                    </div>
+                    </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-toggle="modal" data-target="#raffleSettings"><i class="fa fa-cog"/></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$.raffle.openPoints()">Abrir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="timeRaffle" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background: rgb(28, 28, 36); border-radius: 3px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Sorteo por tiempo</h4>
+                </div>
+
+                <div class="modal-body">
+                    <lable>Palabra clave</lable>
+                    <div class="btn-group">
+                        <input style="width: 400px; margin-left: 55px;" type="text" class="form-control" id="raffle-time-keyword" placeholder="Palabra clave" data-toggle="tooltip" 
+                        title="Esta es la palabra clave que los usuarios van a escribir en el chat para participar. Si añades ! en frente de la palabra clave va a funcionar como un comando."/>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Tiempo minimo</lable>
+                    <div class="btn-group">
+                        <input style="width: 400px; margin-left: 42px;" type="number" min="1" class="form-control" id="raffle-time-cost" placeholder="Tiempo (Minutos)" data-toggle="tooltip" 
+                        title="Cantidad de tiempo, en minutos, que los espectadores debe haber estado en el canal para entrar al sorteo."/>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Elegibilidad</lable>&nbsp;
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-select" style="text-align: left; margin-left: 63px; width: 403px; background: #000" data-toggle="dropdown">
+                            Todos<span class="caret pull-right" style="margin-top: 8px;"></span></button>
+
+                        <ul class="dropdown-menu" style="margin-left: 48px;">
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('subscribers')">Suscriptores</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('followers')">Seguidores</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('everyone')">Todos</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <br>
+                    <lable>Tiempo en cerrarse</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-time-timer" style="width: 400px; margin-left: 30px;" type="range" min="0" max="120" value="0" step="1" oninput="rangeUpdate(this.value, 'raffle-time-timer2', 'Minutos')" />
+                        <span id="raffle-time-timer2" style="margin-left: 33px;">Hasta cerrarlo</span>
+                    </div>
+
+                    <br>
+                    <lable>Suerte de Regulares</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-time-regluck" style="width: 400px; margin-left: 26px;" type="range" min="1" max="10" value="1" step="1" oninput="rangeUpdate(this.value, 'raffle-time-reg', 'Veces')" />
+                        <span id="raffle-time-reg" style="margin-left: 28px;">1 Veces</span>
+                    </div>
+
+                    <br>
+                    <lable>Suerte de Suscriptores</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-time-subluck" style="width: 400px; margin-left: 10px;" type="range" min="1" max="10" value="1" step="1" oninput="rangeUpdate(this.value, 'raffle-time-sub', 'Veces')" />
+                        <span id="raffle-time-sub" style="margin-left: 10px;">1 Veces</span>
+                    </div>
+                    </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-toggle="modal" data-target="#raffleSettings"><i class="fa fa-cog"/></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$.raffle.openTime()">Abrir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="normalRaffle" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background: rgb(28, 28, 36); border-radius: 3px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"> </button>
+                    <h4 class="modal-title">Sorteo normal</h4>
+                </div>
+
+                <div class="modal-body">
+                    <lable>Palabra clave</lable>
+                    <div class="btn-group">
+                        <input style="width: 400px; margin-left: 45px;" type="text" class="form-control" id="raffle-normal-keyword" placeholder="Palabra clave" data-toggle="tooltip"
+                        title="Esta es la palabra clave que los usuarios van a escribir en el chat para participar. Si añades ! en frente de la palabra clave va a funcionar como un comando."/>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Elegibilidad</lable>&nbsp;
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-select" style="text-align: left; margin-left: 50px; width: 405px; background: #000" data-toggle="dropdown">
+                            Todos<span class="caret pull-right" style="margin-top: 8px;"></span></button>
+
+                        <ul class="dropdown-menu" style="margin-left: 48px;">
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('subscribers')">Suscriptores</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('followers')">Seguidores</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.setEligibility('everyone')">Todos</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <br>
+                    <lable>Tiempo en cerrarse</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-normal-timer" style="width: 400px; margin-left: 33px;" type="range" min="0" max="120" value="0" step="1" oninput="rangeUpdate(this.value, 'raffle-normal-timer2', 'Minutos')" />
+                        <span id="raffle-normal-timer2" style="margin-left: 33px;">Hasta cerrarlo</span>
+                    </div>
+
+                    <br>
+                    <lable>Suerte de Regulares</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-normal-regluck" style="width: 400px; margin-left: 28px;" type="range" min="1" max="10" value="1" step="1" oninput="rangeUpdate(this.value, 'raffle-normal-regluck2', 'Veces')" />
+                        <span id="raffle-normal-regluck2" style="margin-left: 28px;">1 Veces</span>
+                    </div>
+
+                    <br>
+                    <lable>Suerte de Suscriptores</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-normal-subluck" style="width: 400px; margin-left: 10px;" type="range" min="1" max="10" value="1" step="1" oninput="rangeUpdate(this.value, 'raffle-normal-subluck2', 'Veces')" />
+                        <span id="raffle-normal-subluck2" style="margin-left: 10px;">1 Veces</span>
+                    </div>
+                    </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-toggle="modal" data-target="#raffleSettings"><i class="fa fa-cog"/></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$.raffle.openNormal()">Abrir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="raffleSettings" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background: rgb(28, 28, 36); border-radius: 3px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"> </button>
+                    <h4 class="modal-title">Configuracion global</h4>
+                </div>
+
+                <div class="modal-body">
+                    <lable>Mensaje automatico</lable>
+                    <div class="btn-group">
+                        <input id="raffle-message-input" style="width: 370px; margin-left: 39px;" type="text" class="form-control" placeholder="Mensaje" />
+                    </div>
+
+                    <br>
+                    <lable>Intervalo de mensaje</lable>
+                    <div class="btn-group">&nbsp;&nbsp;&nbsp;
+                        <input id="raffle-message-timer" style="width: 370px; margin-left: 39px;" type="range" min="0" max="120" value="0" step="1" oninput="rangeUpdate(this.value, 'raffle-message-timer2', 'Minutos')" />
+                        <span id="raffle-message-timer2" style="margin-left: 39px;">Deshabilitado</span>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Mensaje de alerta</lable>&nbsp;
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-select" style="text-align: left; margin-left: 22px; width: 405px; background: #000" data-toggle="dropdown">
+                            <span id="raffle-message">Deshabilitado</span><span class="caret pull-right" style="margin-top: 8px;"></span></button>
+
+                        <ul class="dropdown-menu" style="margin-left: 22px;">
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.raffle.set('raffleSettings', 'raffleMSGToggle', 'true')">Habilitado</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.raffle.set('raffleSettings', 'raffleMSGToggle', 'false')">Deshabilitado</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Volver a elegir varias veces</lable>&nbsp;
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-select" style="text-align: left; margin-left: 25px; width: 345px; background: #000" data-toggle="dropdown">
+                            <span id="raffle-repick">No</span><span class="caret pull-right" style="margin-top: 8px;"></span></button>
+
+                        <ul class="dropdown-menu" style="margin-left: 39px;">
+                            <li ><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.raffle.set('raffleSettings', 'noRepickSame', 'false')">Si</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.raffle.set('raffleSettings', 'noRepickSame', 'true')">No</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <br>
+                    <br>
+                    <lable>Susurrar al ganador</lable>&nbsp;
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-select" style="text-align: left; margin-left: 70px; width: 347px; background: #000" data-toggle="dropdown">
+                            <span id="raffle-whisper-winner">No</span><span class="caret pull-right" style="margin-top: 8px;"></span></button>
+
+                        <ul class="dropdown-menu" style="margin-left: 44px;">
+                            <li ><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.raffle.set('raffleSettings', 'raffleWhisperWinner', 'true')">Si</a>
+                            </li>
+                            <li><a style="cursor: pointer; width: 400px;" class="dropdown-shadow" onclick="$.raffle.set('raffleSettings', 'raffleWhisperWinner', 'false')">No</a>
+                            </li>
+                        </ul>
+                    </div>
+                
+                <br><br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$.raffle.settings()">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <br><br><br>
+    <div id="raffleResults" />
+    <td>Entradas totales: <span id="raffleentries">0</span></td>
+
+    <br><br>
+    <label for="raffleListTable">Lista de entradas en el sorteo</label>
+    <div id="raffleListTable" style="height: 200px; overflow: auto;" />
+    <br>
+    <small><i>Por favor, note que la lista no se resetea hasta que se abra el proximo sorteo. Es asi para la habilidad te escojer a un nuevo ganador.</i></small>
+
+    </div>
+    </div>
+
+    <h3>Entradas del sorteo</h3>
+    <div>
+    <div id="_trafflePanelDisabled" />
+    <div id="_trafflePanel">
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="traffleOpen">Abrir/Cerrar la entrada del sorteo</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.traffleRepick()">Volver a elegir un ganador</button>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.traffleClose()">Cerrar el sorteo</button>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.traffleOpen()">Abrir el sorteo</button>
+                <input type="number" min="0" class="form-control" id="traffleMaxInput" placeholder="Entradas maximas" />
+                <input type="number" min="0" class="form-control" id="traffleCostInput" placeholder="Costo por entrada" />
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="traffleFollowerInput" value="-followers">Seguidores solo
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="traffleEnterMsg" onclick="$.toggleTRaffleMsg()">Mensajes de alerta
+                </label>
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="traffleMsg">Mensaje del sorteo</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateTRaffleSettings('traffleMsg')">Enviar</button>
+                <input type="text" class="form-control" id="traffleMsg" placeholder="Mensaje" data-toggle="tooltip" title="Anunciar automaticamente con un mensaje el sorteo. Esto es solo aplicable cuando un nuevo sorteo comienza. Etiquetas: (entries)"/>
+            </div>
+        </form>
+
+        <form role="form">
+            <div class="form-group" onkeypress="return event.keyCode != 13">
+                <label for="traffleTimer">Tiempo de mensajes (minutos)</label>
+                <button type="button" class="btn btn-primary inline pull-right" onclick="$.updateTRaffleSettings('traffleTimer')">Enviar</button>
+                <input type="number" min="0" class="form-control" id="traffleTimer" placeholder="Cantidad" data-toggle="tooltip" 
+                title="Tiempo para anunciar automaticamente el sorteo. Usa 0 para deshabilitarlo. Esto es solo aplicable cuando un nuevo sorteo comienza."/>
+            </div>
+        </form>
+
+        <div id="traffleResults" />
+    <br>
+        <td>Entradas totales: <span id="traffleentries">0</span></td>
+        <br>
+    <br>
+        <label for="traffleListTable">Lista de entradas en el sorteo</label>
+        <div id="traffleListTable" style="height: 200px; overflow: auto;" />
+        <br>
+        <small><i>Por favor, note que la lista no se resetea hasta que se abra el proximo sorteo. Es asi para la habilidad te escojer a un nuevo ganador.</i></small>
+    </div>
+    </div>
+    </div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$("#gamblingAccordion").accordion( { clearStyle: true, heightStyle: "panel", icons: null } );</script>
+<script>$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });</script>
+<script>function rangeUpdate(value, id, string) { document.getElementById(id).innerHTML = value + ' ' + string; }</script>
+<script>$(".dropdown-menu li a").click(function() { $(this).parents('.btn-group').find('.dropdown-toggle').html($(this).text() + '</span> <span class="caret pull-right" style="margin-top: 8px;"></span>');});</script>
+<script>handleInputFocus();</script>

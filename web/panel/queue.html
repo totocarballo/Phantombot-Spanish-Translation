@@ -1,0 +1,89 @@
+<!--
+
+ Copyright (C) 2016-2018 phantombot.tv
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ @author ScaniaTV
+-->
+
+<div id="queueSystemAccordion">
+	<h3>Cola</h3>
+	<div>
+		<div id="_queuePanelDisabled"/>
+		<div id="_queuePanel">
+			<button type="button" class="btn btn-primary inline pull-right" onclick="$.runCommand('clear');">Limpiar</button>
+			<button type="button" class="btn btn-primary inline pull-right" onclick="$.runCommand('close');">Cerrar</button>
+			<button type="button" class="btn btn-primary inline pull-right" data-toggle="modal" data-target="#queue-pick">Escojer</button>
+			<button type="button" class="btn btn-primary inline pull-right" data-toggle="modal" data-target="#queue-modal">Abrir</button>
+
+		<br><br><br>
+		<div id="queue-list"/>
+
+		<div id="queue-modal" class="modal fade" role="dialog">
+        	<div class="modal-dialog">
+        	    <div class="modal-content" style="background: rgb(28, 28, 36); border-radius: 3px;">
+        	        <div class="modal-header">
+        	            <button type="button" class="close" data-dismiss="modal"> </button>
+        	            <h4 class="modal-title">Abrir una cola</h4>
+        	        </div>
+	
+        	        <div class="modal-body">
+        	        	<lable><b>Titulo:</b></lable>
+        	            <div class="form-group" onkeypress="return event.keyCode != 13">
+        	                <input id="queue-title" type="text" class="form-control" placeholder="Titulo de la cola" data-toggle="tooltip" title="El titulo de la cola que quieras abrir."/>
+        	            </div>
+	
+        	            <lable><b>Tamaño maximo:</b></lable>
+        	            <div class="form-group" onkeypress="return event.keyCode != 13">
+        	                <input id="queue-size" type="number" min="0" value="0" class="form-control" placeholder="Tamaño maximo" data-toggle="tooltip" title="Tamaño maximo para la cola, 0 es ilimitado" />
+        	            </div>
+        	        </div>
+        	        <div class="modal-footer">
+        	            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$.runCommand('open')">Abrir</button>
+        	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        	        </div>
+        	    </div>
+        	</div>
+        </div>
+
+        <div id="queue-pick" class="modal fade" role="dialog">
+        	<div class="modal-dialog">
+        	    <div class="modal-content" style="background: rgb(28, 28, 36); border-radius: 3px;">
+        	        <div class="modal-header">
+        	            <button type="button" class="close" data-dismiss="modal"> </button>
+        	            <h4 class="modal-title">Escojer un usuario</h4>
+        	        </div>
+	
+        	        <div class="modal-body">
+        	            <lable><b>Cantidad</b></lable>
+        	            <div class="form-group" onkeypress="return event.keyCode != 13">
+        	                <input id="queue-amount" type="number" min="0" value="1" class="form-control" placeholder="Cantidad" data-toggle="tooltip" title="Cantidad de usuarios que quieras escojer, por defecto es 1." />
+        	            </div>
+        	        </div>
+        	        <div class="modal-footer">
+        	            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$.runCommand('pick')">Escojer</button>
+        	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        	        </div>
+        	    </div>
+        	</div>
+        </div>
+        </div>
+	</div>
+</div>
+
+<!-- Run the Acordion -->
+<script>$('#queueSystemAccordion').accordion({ clearStyle: true, heightStyle: 'panel', icons: null });</script>
+<script>$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });</script>
+<script>handleInputFocus();</script>
